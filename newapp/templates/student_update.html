@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f1f1f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        form input, form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-cancel {
+            background-color: #dc3545;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            line-height: 36px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add Student</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="stud_name">Name</label>
+            <input type="text" name="stud_name" id="stud_name" value="{{ student.stud_name|default:''}}" required>
+
+            <label for="stud_class">Class</label>
+            <input type="text" name="stud_class" id="stud_class" value="{{ student.stud_class|default:''}}" required>
+
+            <label for="stud_division">Division</label>
+            <input type="text" name="stud_division" id="stud_division" value="{{ student.stud_division|default:''}}" required>
+
+            <label for="stud_gender">Gender</label>
+            <select name="stud_gender" id="stud_gender" required>
+                <option value="">-- Select --</option>
+                <option value="Male" {% if student.stud_gender == "Male" %}selected{% endif %}>Male</option>
+                <option value="Female" {% if student.stud_gender == "Female" %}selected{% endif %}>Female</option>
+                <option value="Other" {% if student.stud_gender == "Other" %}selected{% endif %}>Other</option>
+            </select>
+
+            <label for="stud_contact">Contact</label>
+            <input type="text" name="stud_contact" id="stud_contact" value="{{ student.stud_contact|default:''}}" required>
+
+            <label for="stud_place">Place</label>
+            <input type="text" name="stud_place" id="stud_place" value="{{ student.stud_place|default:''}}" required>
+
+            <div class="btn-group">
+                <button type="submit" class="btn btn-submit">Update Student</button>
+                <a href="{% url 'student_list' %}" class="btn btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
